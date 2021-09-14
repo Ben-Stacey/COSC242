@@ -152,55 +152,51 @@ rbt right_rotate(rbt r){
 }
 
 
-rbt rbt_fix(rbt b){
-    if(IS_RED(b->left)){
-        if(IS_RED(b->left->left)){
-            if(IS_RED(b->right)){
-                b->colour = RED;
-                b->left->colour = BLACK;
-                b->right->colour = BLACK;
-            }else if(IS_BLACK(b->right)){
-                b = right_rotate(b);
-                b->colour = BLACK;
-                b->right->colour = RED;
-            }
-        }else if(IS_RED(b->left->right)){
-            if(IS_RED(b->right)){
-                b->colour = RED;
-                b->left->colour = BLACK;
-                b->right->colour = BLACK;
-            }else if(IS_BLACK(b->right)){
-                b->left = left_rotate(b->left);
-                b = right_rotate(b);
-                b->colour = BLACK;
-                b->right->colour = RED;
-            }
+rbt rbt_fix(rbt r){
+    if (IS_RED(r->left) && IS_RED(r->left->left)){
+        if (IS_RED(r->right)){
+            r->colour = RED;
+            r->left->colour = BLACK;
+            r->right->colour = BLACK;
+        }else if (IS_BLACK(r->right)){
+            r = right_rotate(r);
+            r->colour = BLACK;
+            r->right->colour = RED;
         }
-    }else if(IS_RED(b->right)){
-        if(IS_RED(b->right->left)){
-            if(IS_RED(b->left)){
-                b->colour = RED;
-                b->left->colour = BLACK;
-                b->right->colour = BLACK;
-            }else if(IS_BLACK(b->left)){
-                b->right = right_rotate(b->right);
-                b = left_rotate(b);
-                b->colour = BLACK;
-                b->right->colour = RED;
-            }
-        }else if(IS_RED(b->right->right)){
-            if(IS_RED(b->left)){
-                b->colour = RED;
-                b->left->colour = BLACK;
-                b->right->colour = BLACK;
-            }else if(IS_BLACK(b->right)){
-                b = right_rotate(b);
-                b->colour = BLACK;
-                b->right->right->colour = RED;
-            }
+    }else if (IS_RED(r->left) && IS_RED(r->left->right)){
+        if (IS_RED(r->right)){
+            r->colour = RED;
+            r->left->colour = BLACK;
+            r->right->colour = BLACK;
+        }else if (IS_BLACK(r->right)){
+            r->left = left_rotate(r->left);
+            r = right_rotate(r);
+            r->colour = BLACK;
+            r->right->colour = RED;
+        }
+    }else if (IS_RED(r->right) && IS_RED(r->right->left)){
+        if (IS_RED(r->left)){
+            r->colour = RED;
+            r->left->colour = BLACK;
+            r->right->colour = BLACK;
+        }else if (IS_BLACK(r->left)){
+            r->right = right_rotate(r->right);
+            r = left_rotate(r);
+            r->colour = BLACK;
+            r->right->colour = RED;
+        }
+    }else if (IS_RED(r->right) && IS_RED(r->right->right)){
+        if (IS_RED(r->left)){
+            r->colour = RED;
+            r->left->colour = BLACK;
+            r->right->colour = BLACK;
+        }else if (IS_BLACK(r->left)){
+            r = left_rotate(r);
+            r->colour = BLACK;
+            r->left->colour = RED;
         }
     }
-    return b;
+    return r;
 }
 
 rbt rbt_free(rbt b){
