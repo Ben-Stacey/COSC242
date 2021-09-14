@@ -1,28 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#define ARRAY_MAX 10000
-#define KEY_MAX 80
-
-void *emalloc(size_t s){
-    void *result = malloc(s);
-    if(NULL == result){
-        fprintf(stderr, "Memory allocation failed!\n");
-        exit(EXIT_FAILURE);
-    }
-    return result;
-}
+#define ARRAY_MAX 30000
 
 /*Insertion sort method*/
-void insertion_sort(char **a, int n){
-    int i, j;
-    char *key;
-
+void insertion_sort(int *a, int n){
+    int key = 0, i, j;
     for(i = 1; i < n; i++){
         key = a[i];
         for(j = i - 1; j >= 0; j--){
-            if(strcmp(a[j], key) == 1){ 
+            if(a[j] > key){
                 a[j + 1] = a[j];
                 a[j] = key;
             }
@@ -30,30 +17,25 @@ void insertion_sort(char **a, int n){
     }
 }
 
-
+void print_array(int *a, int n){
+    if(n > 0){
+        printf("%d\n", a[0]);
+        print_array(a + 1, n - 1);
+    }
+}
 
 /*main method*/
 int main(void){
-    char *wordlist[ARRAY_MAX];
-    char randwords[KEY_MAX];
-    int i, num_words;
+    int my_array[ARRAY_MAX];
+    int count = 0;
 
-    num_words = 0;
-    while(num_words < ARRAY_MAX && 1 == scanf("%79s", randwords)){
-        wordlist[num_words] = emalloc((strlen(randwords) + 1) * sizeof wordlist[0][0]);
-        strcpy(wordlist[num_words], randwords);
-        num_words++;
+    while(count < ARRAY_MAX && 1 == scanf("%d", &my_array[count])){/*gets the user input*/
+        count++;
     }
 
-    insertion_sort(wordlist, num_words);/*calls the insertion sort method*/
-   
-    for(i = 0; i < num_words; i++){
-        printf("%79s\n", wordlist[i]);/*prints out the sorted array*/
-    }
+    insertion_sort(my_array, count);/*calls the insertion sort method*/
 
-    for(i = 0; i < num_words; i++){
-        free(wordlist[i]);
-    }
+     print_array(my_array, count);
     
     return EXIT_SUCCESS;
 }
