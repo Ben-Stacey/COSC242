@@ -6,8 +6,6 @@
 #include <string.h>
 #include <stddef.h>
 
-int step;
-
 
 graph graph_new(int count) {
     int i, j;
@@ -24,34 +22,34 @@ graph graph_new(int count) {
     return result;
 }
 
-void graph_dfs(graph g){
-    int i;
-    for(i = 0; i < g->size; i++){
-        g->nodes[i].state = UNVISITED;
-        g->nodes[i].parent = -1;
-    }
-    step = 0;
-    for(i = 0; i < g->size; i++){
-        if(g->nodes[i].state == UNVISITED){
-            visit(i, g);
-        }
-    }
-}
+void graph_bfs(graph g, int source){
+    int i, node;
+    queue q;
 
-void visit(graph g, int n){
-    int i;
-    g->nodes[n].state = VISITED_SELF;
-    step++;
-    g->nodes[n].dist = step;
     for(i = 0; i < g->size; i++){
-        if(1 = g->links[n][i] && g->nodes[i].state == UNVISITED){
-            g->nodes[i].parent = n;
-            visit(i, g);
-        }
+        g->nodes[i].parent = -1;
+        g->nodes[i].distance = -1;
+        g->nodes[i].state = UNVISITED;
     }
-    step++;
-    g->nodes[n].state = VISITED_DESCENDANTS;
-    g->nodes[n].finish = step;
+
+    q = queue_new();
+    enqueue(q, source);
+    g->nodes[source].state = VISITED_SELF;
+    g->nodes[source].distance = 0;
+
+    while(0 != queue_size(q)){
+        node = dequeue(q);
+        for(i = 0; i < g->size; i++){
+            if(g->links[node][i] == 1 && g->nodes[i].state == UNVISITED){
+                g->nodes[i].parent = -1;
+                g->nodes[i].distance = -1;
+                g->nodes[i].state = UNVISITED;
+                enqueue(q, i);
+            }
+        }
+        g->nodes[node].state = VISITED_DESCENDANTS;
+    }
+    graph_free(g);
 }
 
 void graph_add_edge(graph g, int node, int neighbour){
@@ -84,7 +82,7 @@ void print_distance(graph g){
     int i;
     printf("Vertex Distance Pred");
     for(i = 0; i < g->size; i++){
-        printf("%5d %5d %5d\n", i, g->nodes[i].dist, g->nodes[i].parent);
+        printf("%5d %5d %5d\n", i, g->nodes[i].distance, g->nodes[i].parent);
     }
 }
 
@@ -114,7 +112,7 @@ int main(void){
     print_list(g);
 
     /*perform a bfs, output results and free memory*/
-    graph_dfs(g);
+    graph_bfs(g, 1);
     print_distance(g);
     graph_free(g);
     

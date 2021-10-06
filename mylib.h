@@ -3,13 +3,11 @@
 
 #include <stddef.h>
 #include <stdbool.h>
-#include <stdio.h>
 
 /*
  * Function declarations for mylib.
  * */
-extern void *emalloc(size_t);
+extern void *emalloc(size_t s);
 extern void *erealloc(void *, size_t);
-extern int getword(char *s, int limit, FILE *stream);
 
 #endif
