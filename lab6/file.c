@@ -3,6 +3,9 @@
 
 #define ARRAY_MAX 30000
 
+/**
+ * insertion sort method
+ */
 void insertion_sort(int *a, int n){
     int key = 0, i, j;
     for(i = 0; i < n; i++){
@@ -16,12 +19,16 @@ void insertion_sort(int *a, int n){
     }
 }
 
+/**
+ * using the file to read in and read out data
+ * from a file
+ */
 int main(void){
     FILE *infile;
     int my_array[ARRAY_MAX];
     int count = 0;
     int num_items;
-    int i;
+    int i, argv;
     
     if(NULL == (infile = fopen(argv[i], "r"))){\
         fprintf(stderr, "%s: can't find %s\n", argv[0], argv[1]);
