@@ -3,6 +3,10 @@
 
 #define OCEAN_MAX 41981
 
+/**
+ * ocean struct
+ * thats sets the values
+ */
 struct ocean_datum{
     int x;
     int y;
@@ -10,16 +14,27 @@ struct ocean_datum{
     
 };
 
+/**
+ * prints the data
+ */
 void print_ocean_datum(struct ocean_datum *o){
     printf("%d %d %.4f\n", o->x, o->x, o->conc);
 }
 
+/**
+ * reads in the data
+ */
 int read_ocean_datum(struct ocean_datum *o){
     return 3 == scanf("%d %d %lg",  &o->x, &o->x, &o->conc);
 }
 
-/*void insertion_sort()*/
-
+/**
+ * main method
+ * gets in the values from the ocean struct
+ * 
+ * then uses insertion sort to sort the values
+ * 
+*/
 int main(void){
     struct ocean_datum ocean_data[OCEAN_MAX];
     int num_items;
