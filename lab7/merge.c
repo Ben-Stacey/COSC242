@@ -3,6 +3,11 @@
 
 #define ARRAY_MAX 6
 
+/**
+ * merge method
+ * 
+ * once pair has been sorted this merges the array back together
+ */
 void merge(int *arr, int *workspace, int n){
     int i, j, pillow ;
 
@@ -34,6 +39,9 @@ void merge(int *arr, int *workspace, int n){
     }
 }
 
+/**
+ * sorts the pairs once they haev been divided
+ */
 void mergeSort(int *arr, int *w, int n){
     int i;
 
@@ -50,8 +58,9 @@ void mergeSort(int *arr, int *w, int n){
     }
 }
 
-
-
+/**
+ * prints out the array once its been sorted
+ */
 void print_array(int *a, int n){
     if(n > 0){
         printf("%d\n", a[0]);
@@ -59,6 +68,9 @@ void print_array(int *a, int n){
     }
 }
 
+/**
+ * does all the method calls to run the program
+ */
 int main(void){
     int arr[ARRAY_MAX];
     int arr2[ARRAY_MAX];
