@@ -3,7 +3,11 @@
 
 #define ARRAY_MAX 30000
 
-/*Insertion sort method*/
+/**
+ * Insertion sort method
+ * This is the insertion sort method 
+ * called in the main
+ * */
 void insertion_sort(int *a, int n){
     int key = 0, i, j;
     for(i = 1; i < n; i++){
@@ -17,6 +21,9 @@ void insertion_sort(int *a, int n){
     }
 }
 
+/**
+ * This prints out the array once it has been sorted
+ */
 void print_array(int *a, int n){
     if(n > 0){
         printf("%d\n", a[0]);
@@ -24,18 +31,22 @@ void print_array(int *a, int n){
     }
 }
 
-/*main method*/
+/**
+ * main method
+ * This method controls the ordering of the program
+ */
 int main(void){
     int my_array[ARRAY_MAX];
     int count = 0;
 
+    //reads the data from the file into the program
     while(count < ARRAY_MAX && 1 == scanf("%d", &my_array[count])){/*gets the user input*/
         count++;
     }
 
     insertion_sort(my_array, count);/*calls the insertion sort method*/
 
-     print_array(my_array, count);
+    print_array(my_array, count);
     
     return EXIT_SUCCESS;
 }

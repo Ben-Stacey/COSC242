@@ -6,7 +6,7 @@
 #define ARRAY_LEN 10000
 
 void *emalloc(size_t s){
-    void *result = malloc(S);
+    void *result = malloc(s);
     if(NULL == result){
         fprintf(stderr, "Memory allocation failed!\n");
         exit(EXIT_FAILURE);
@@ -22,10 +22,10 @@ int main(void){
     int i;
 
     num_words = 0;
-    while(num_words < ARRAY_LEN && 1 == canf("%79s", word)){
+    while(num_words < ARRAY_LEN && 1 == scanf("%79s", word)){
         wordlist[num_words] = emalloc((strlen(word) + 1) * sizeof wordlist[0][0]);
         strcopy(wordlist[num_words], word);
-        num_word++;
+        num_words++;
     }
 
     average = 0.0;
@@ -36,10 +36,9 @@ int main(void){
     average = average / num_words;
     printf("%f\n", average);
 
-    for(i = 0; i < num_words, i++){
+    for(i = 0; i < num_words; i++){
         free(wordlist[i]);
     }
-
 
     return EXIT_SUCCESS;
 }
